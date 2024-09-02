@@ -1,12 +1,14 @@
 <!--
  * @Autor: zengjun1.fj
  * @Date: 2024-08-15 16:43:21
- * @LastEditors: zengjun1.fj
- * @LastEditTime: 2024-08-21 14:57:14
+ * @LastEditors: zhenjun
+ * @LastEditTime: 2024-09-02 18:36:43
  * @Description: 
 -->
 <script setup>
 import { reactive, onMounted } from 'vue';
+import { MessagePlugin } from 'tdesign-vue-next';
+import mapleAxios from "@/api/http";
 
 import { shuffleArray, sortByColorThenPoint } from "@/utils/cardUtils";
 
@@ -20,6 +22,9 @@ let cardHandImage = "mapleOneCard.Hand.other.default.png";
 // let changeColorBoard = "mapleOneCard.OneCardPopup.ChangeColor.backgrnd.png";
 
 let data = reactive({
+  logined: false,
+  userName: "",
+  roomNumber: "",
   deck: [],
   turn: 0,
   myturn: 0,
@@ -135,6 +140,24 @@ const drawCard = () => {
   console.log("牌堆还剩下：", cardDeck.length);
 }
 
+const onSubmit = ({ validateResult, firstError }) => {
+  if (validateResult === false) {
+    MessagePlugin.success(firstError);
+    return;
+  }
+  mapleAxios.post("/mapleApi/user/login", {
+    data: {
+      userName: data.userName,
+      roomNumber: data.roomNumber
+    }
+  }).then(response => {
+    console.log(response);
+  })
+
+
+
+};
+
 
 onMounted(() => {
   data.deck = shuffleArray(cardDeck);
@@ -150,7 +173,24 @@ onMounted(() => {
 
 <template>
   <div class="game-container">
-    <div class="game-table">
+    <div class="login-table" style="width: 350px" v-if="!data.logined">
+      <t-form ref="form" :data="data" :colon="true" :label-width="0" @submit="onSubmit">
+        <t-form-item name="userName">
+          <t-input v-model="data.userName" clearable placeholder="请输入中文用户名">
+          </t-input>
+        </t-form-item>
+
+        <t-form-item name="roomNumber">
+          <t-input v-model="data.roomNumber" clearable placeholder="请输入数字房间号">
+          </t-input>
+        </t-form-item>
+
+        <t-form-item>
+          <t-button theme="primary" type="submit" block>进入</t-button>
+        </t-form-item>
+      </t-form>
+    </div>
+    <div class="game-table" v-if="data.logined">
       <img class="card-previous" :src="getImage(data.cardPrevious.image)" />
       <img class="cards-deck" :src="getImage(cardDeckImage)" @click="drawCard" />
       <TheGif class="clickNormals" :imageList="clickNormals" v-show="isMyturn(data.turn, data.myturn)" />

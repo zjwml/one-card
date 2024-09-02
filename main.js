@@ -1,15 +1,11 @@
-/*
- * @Autor: zengjun1.fj
- * @Date: 2024-08-15 16:43:21
- * @LastEditors: zengjun1.fj
- * @LastEditTime: 2024-08-19 10:13:25
- * @Description:
- */
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+
+// 引入组件库的少量全局样式变量
+import 'tdesign-vue-next/es/style/index.css'
 
 const app = createApp(App)
 
