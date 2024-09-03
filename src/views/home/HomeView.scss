@@ -13,6 +13,7 @@
 }
 
 .game-container {
+  color: yellow;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -47,6 +48,13 @@
 
     left: 212px;
     top: 212px;
+  }
+
+  .btn_start {
+    position: absolute;
+
+    left: 375px;
+    top: 265px;
   }
 
   .flames {
@@ -99,6 +107,15 @@
         left: 64px;
         top: 58px;
       }
+
+      .myname {
+        font-size: 16px;
+        z-index: 11;
+        position: absolute;
+
+        left: 64px;
+        top: 35px;
+      }
     }
 
     .top-left {
@@ -148,6 +165,15 @@
 
         left: 65px;
         top: 38px;
+      }
+
+      .othername {
+        font-size: 16px;
+        z-index: 11;
+        position: absolute;
+
+        left: 66px;
+        top: 15px;
       }
     }
   }
