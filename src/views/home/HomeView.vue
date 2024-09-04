@@ -1,8 +1,8 @@
 <!--
  * @Autor: zengjun1.fj
  * @Date: 2024-08-15 16:43:21
- * @LastEditors: ZengJun
- * @LastEditTime: 2024-09-03 20:10:54
+ * @LastEditors: zhenjun
+ * @LastEditTime: 2024-09-04 16:22:39
  * @Description: 
 -->
 <script setup>
@@ -14,7 +14,6 @@ import { sortByColorThenPoint } from "@/utils/cardUtils";
 
 import {
   flameNormals,
-  cardDeck,
   clickNormals,
   MyCharacterSlot,
   OtherCharacterSlot,
@@ -39,7 +38,6 @@ let data = reactive({
   userName: "",
   roomNumber: "",
   userId: "",
-  myCards: [],
   direction: -1,
   turn: 0,
   myturn: 0,
@@ -51,17 +49,9 @@ let data = reactive({
     point: "",
   },
   hands: {},
-  isAllDisabled:false,
+  isAllDisabled: false,
 
   deck: [],
-
-  oneTurn: 1,
-  twoTurn: 2,
-  threeTurn: 3,
-
-  oneLeft: 6,
-  twoLeft: 6,
-  threeLeft: 6,
 });
 
 const loading = ref(false);
@@ -87,7 +77,7 @@ const isMyturn = (turn, myturn) => {
  * @param {number} myturn “我”的次序
  */
 const isNext = (turn, myturn) => {
-  return (turn + data.direction + 4) % 4 === myturn;
+  return (turn + data.direction + data.players.length) % data.players.length === myturn;
 };
 /**
  * 判断是否与我无关
@@ -135,29 +125,29 @@ const isDisabledCard = (card) => {
 /**
  * 出牌
  * @param {object} item 牌
- * @param {number} index 下标
  */
-const playCard = (item, index) => {
-  console.log("出牌：", item.color, item.point);
-  data.myCards.splice(index, 1);
-  data.deck.push(item);
-  data.playCard = JSON.parse(JSON.stringify(item));
-  if (item.point == "attack2") {
-    data.attackLevel += 2;
-  }
-  if (item.point == "attack3") {
-    data.attackLevel += 3;
-  }
-  if (item.point == "hero") {
-    if (item.color == "red") {
-      data.attackLevel += 5;
-    } else if (item.color == "yellow") {
-      data.attackLevel = 0;
-    }
-  }
-  console.log("手牌数量：", data.myCards.length);
-
-  console.log("牌堆还剩下：", cardDeck.length);
+const playOneCard = (item) => {
+  console.log("出牌：", item);
+  mapleAxios
+    .post("/battle/play", {
+      userName: data.userName,
+      roomNumber: data.roomNumber,
+      cardId: item.id
+    })
+    .then((response) => {
+      console.log("response:", response);
+      if ("000" !== response.code) {
+        MessagePlugin.error(response.msg);
+        return;
+      }
+      const respData = response.data.battleInfoSubOutVo;
+      data.players = respData.players;
+      data.attackLevel = respData.attackLevel;
+      data.direction = respData.direction;
+      data.hands = respData.hands;
+      data.playCard = respData.playCard;
+      data.status = respData.status;
+    });
 };
 
 /**
@@ -304,18 +294,11 @@ onUnmounted(() => {
     <div class="game-table" v-if="data.logined">
       <img class="card-previous" :src="getCardImage(data.playCard)" />
       <img class="cards-deck" :src="getImage(cardDeckImage)" @click="drawCard" />
-      <TheGif
-        class="clickNormals"
-        :imageList="clickNormals"
-        v-show="isMyturn(data.turn, data.myturn) && data.isAllDisabled"
-      />
+      <TheGif class="clickNormals" :imageList="clickNormals"
+        v-show="isMyturn(data.turn, data.myturn) && data.isAllDisabled" />
 
       <div class="flames">
-        <TheGif
-          class="flame flame1"
-          :imageList="flameNormals"
-          v-if="data.attackLevel >= 1"
-        />
+        <TheGif class="flame flame1" :imageList="flameNormals" v-if="data.attackLevel >= 1" />
       </div>
 
       <div class="btn_start" v-if="data.showStart">
@@ -325,201 +308,93 @@ onUnmounted(() => {
       <div class="boards">
         <div class="MyCharacterSlot">
           <img class="board" :src="getImage(MyCharacterSlot.board)" />
-          <img
-            class="backlight"
-            :src="getImage(MyCharacterSlot.backlightMyturn)"
-            v-show="isMyturn(data.turn, data.myturn)"
-          />
-          <img
-            class="backlight"
-            :src="getImage(MyCharacterSlot.backlightNext)"
-            v-show="isNext(data.turn, data.myturn)"
-          />
-          <TheGif
-            class="myturn"
-            :imageList="myturns"
-            v-show="isMyturn(data.turn, data.myturn)"
-          />
-          <TheGif
-            class="otherTurn"
-            :imageList="nexts"
-            v-show="isNext(data.turn, data.myturn)"
-          />
-          <img
-            class="otherTurn"
-            :src="getImage(waitingImage)"
-            v-show="isWaiting(data.turn, data.myturn)"
-          />
+          <img class="backlight" :src="getImage(MyCharacterSlot.backlightMyturn)"
+            v-show="isMyturn(data.turn, data.myturn)" />
+          <img class="backlight" :src="getImage(MyCharacterSlot.backlightNext)"
+            v-show="isNext(data.turn, data.myturn)" />
+          <TheGif class="myturn" :imageList="myturns" v-show="isMyturn(data.turn, data.myturn)" />
+          <TheGif class="otherTurn" :imageList="nexts" v-show="isNext(data.turn, data.myturn)" />
+          <img class="otherTurn" :src="getImage(waitingImage)" v-show="isWaiting(data.turn, data.myturn)" />
           <div class="myname">{{ data.userName }}</div>
         </div>
 
         <div class="OtherCharacterSlot top-left">
           <img class="board" :src="getImage(OtherCharacterSlot.board)" />
-          <img
-            class="backlight"
-            v-if="data.players && data.players.length === 4"
-            :src="getImage(OtherCharacterSlot.backlightMyturn)"
-            v-show="isMyturn(data.turn, data.oneTurn)"
-          />
-          <img
-            class="backlight"
-            v-if="data.players && data.players.length === 4"
-            :src="getImage(OtherCharacterSlot.backlightNext)"
-            v-show="isNext(data.turn, data.oneTurn)"
-          />
-          <TheGif
-            class="myturn"
-            v-if="data.players && data.players.length === 4"
-            :imageList="myturns"
-            v-show="isMyturn(data.turn, data.oneTurn)"
-          />
-          <TheGif
-            class="otherTurn"
-            v-if="data.players && data.players.length === 4"
-            :imageList="nexts"
-            v-show="isNext(data.turn, data.oneTurn)"
-          />
-          <img
-            class="otherTurn"
-            v-if="data.players && data.players.length === 4"
-            :src="getImage(waitingImage)"
-            v-show="isWaiting(data.turn, data.oneTurn)"
-          />
+          <img class="backlight" v-if="data.players && data.players.length === 4"
+            :src="getImage(OtherCharacterSlot.backlightMyturn)" v-show="isMyturn(data.turn, data.myturn + 1)" />
+          <img class="backlight" v-if="data.players && data.players.length === 4"
+            :src="getImage(OtherCharacterSlot.backlightNext)" v-show="isNext(data.turn, data.myturn + 1)" />
+          <TheGif class="myturn" v-if="data.players && data.players.length === 4" :imageList="myturns"
+            v-show="isMyturn(data.turn, data.myturn + 1)" />
+          <TheGif class="otherTurn" v-if="data.players && data.players.length === 4" :imageList="nexts"
+            v-show="isNext(data.turn, data.myturn + 1)" />
+          <img class="otherTurn" v-if="data.players && data.players.length === 4" :src="getImage(waitingImage)"
+            v-show="isWaiting(data.turn, data.myturn + 1)" />
           <div class="othername" v-if="data.players && data.players.length === 4">
             {{
-              data.players[(data.myturn + data.players.length + 3) % data.players.length]
-            }}
+      data.players[(data.myturn + data.players.length + 3) % data.players.length]
+    }}
           </div>
         </div>
 
         <div class="OtherCharacterSlot top-right">
           <img class="board" :src="getImage(OtherCharacterSlot.board)" />
-          <img
-            class="backlight"
-            v-if="data.players && data.players.length === 3"
-            :src="getImage(OtherCharacterSlot.backlightMyturn)"
-            v-show="isMyturn(data.turn, data.twoTurn)"
-          />
-          <img
-            class="backlight"
-            v-if="data.players && data.players.length === 3"
-            :src="getImage(OtherCharacterSlot.backlightNext)"
-            v-show="isNext(data.turn, data.twoTurn)"
-          />
-          <TheGif
-            class="myturn"
-            v-if="data.players && data.players.length === 3"
-            :imageList="myturns"
-            v-show="isMyturn(data.turn, data.twoTurn)"
-          />
-          <TheGif
-            class="otherTurn"
-            v-if="data.players && data.players.length === 3"
-            :imageList="nexts"
-            v-show="isNext(data.turn, data.twoTurn)"
-          />
-          <img
-            class="otherTurn"
-            v-if="data.players && data.players.length === 3"
-            :src="getImage(waitingImage)"
-            v-show="isWaiting(data.turn, data.twoTurn)"
-          />
+          <img class="backlight" v-if="data.players && data.players.length === 3"
+            :src="getImage(OtherCharacterSlot.backlightMyturn)" v-show="isMyturn(data.turn, data.myturn + 2)" />
+          <img class="backlight" v-if="data.players && data.players.length === 3"
+            :src="getImage(OtherCharacterSlot.backlightNext)" v-show="isNext(data.turn, data.myturn + 2)" />
+          <TheGif class="myturn" v-if="data.players && data.players.length === 3" :imageList="myturns"
+            v-show="isMyturn(data.turn, data.myturn + 2)" />
+          <TheGif class="otherTurn" v-if="data.players && data.players.length === 3" :imageList="nexts"
+            v-show="isNext(data.turn, data.myturn + 2)" />
+          <img class="otherTurn" v-if="data.players && data.players.length === 3" :src="getImage(waitingImage)"
+            v-show="isWaiting(data.turn, data.myturn + 2)" />
           <div class="othername" v-if="data.players && data.players.length === 3">
             {{
-              data.players[(data.myturn + data.players.length + 2) % data.players.length]
-            }}
+      data.players[(data.myturn + data.players.length + 2) % data.players.length]
+    }}
           </div>
         </div>
 
         <div class="OtherCharacterSlot bottom-right">
           <img class="board" :src="getImage(OtherCharacterSlot.board)" />
-          <img
-            class="backlight"
-            :src="getImage(OtherCharacterSlot.backlightMyturn)"
-            v-show="isMyturn(data.turn, data.threeTurn)"
-          />
-          <img
-            class="backlight"
-            :src="getImage(OtherCharacterSlot.backlightNext)"
-            v-show="isNext(data.turn, data.threeTurn)"
-          />
-          <TheGif
-            class="myturn"
-            :imageList="myturns"
-            v-show="isMyturn(data.turn, data.threeTurn)"
-          />
-          <TheGif
-            class="otherTurn"
-            :imageList="nexts"
-            v-show="isNext(data.turn, data.threeTurn)"
-          />
-          <img
-            class="otherTurn"
-            :src="getImage(waitingImage)"
-            v-show="isWaiting(data.turn, data.threeTurn)"
-          />
+          <img class="backlight" :src="getImage(OtherCharacterSlot.backlightMyturn)"
+            v-show="isMyturn(data.turn, data.myturn + 3)" />
+          <img class="backlight" :src="getImage(OtherCharacterSlot.backlightNext)"
+            v-show="isNext(data.turn, data.myturn + 3)" />
+          <TheGif class="myturn" :imageList="myturns" v-show="isMyturn(data.turn, data.myturn + 3)" />
+          <TheGif class="otherTurn" :imageList="nexts" v-show="isNext(data.turn, data.myturn + 3)" />
+          <img class="otherTurn" :src="getImage(waitingImage)" v-show="isWaiting(data.turn, data.myturn + 3)" />
           <div class="othername" v-if="data.players.length > 1">
             {{
-              data.players[(data.myturn + data.players.length + 1) % data.players.length]
-                .userName
-            }}
+      data.players[(data.myturn + data.players.length + 1) % data.players.length]
+        .userName
+    }}
           </div>
         </div>
       </div>
 
       <div class="mycards-container" v-if="data.hands">
-        <div
-          :class="'my-card abs-left' + index"
-          v-for="(item, index) in sortByColorThenPoint(data.hands[data.userId])"
-          :key="index"
-        >
-          <img
-            class="cardDisabledImage"
-            :src="getImage(cardDisabledImage)"
-            v-show="isDisabledCard(item)"
-          />
-          <img
-            class="card-myturn"
-            :src="getCardImage(item)"
-            @click="playCard(item, index)"
-          />
+        <div :class="'my-card abs-left' + index" v-for="(item, index) in sortByColorThenPoint(data.hands[data.userId])"
+          :key="index">
+          <img class="cardDisabledImage" :src="getImage(cardDisabledImage)" v-show="isDisabledCard(item)" />
+          <img class="card-myturn" :src="getCardImage(item)" @click="playOneCard(item)" />
         </div>
       </div>
 
-      <div
-        class="othercards-container-top-left"
-        v-if="data.player && data.player.length === 4"
-      >
-        <div
-          :class="'my-card abs-left' + n"
-          v-for="n in data.hands[data.userId + 1]"
-          :key="n"
-        >
+      <div class="othercards-container-top-left" v-if="data.player && data.player.length === 4">
+        <div :class="'my-card abs-left' + n" v-for="n in data.hands[data.userId + 1]" :key="n">
           <img class="card-myturn" :src="getImage(cardHandImage)" />
         </div>
       </div>
 
-      <div
-        class="othercards-container-top-right"
-        v-if="data.player && data.player.length === 3"
-      >
-        <div
-          :class="'my-card abs-left' + n"
-          v-for="n in data.hands[data.userId]"
-          :key="n"
-        >
+      <div class="othercards-container-top-right" v-if="data.player && data.player.length === 3">
+        <div :class="'my-card abs-left' + n" v-for="n in data.hands[data.userId]" :key="n">
           <img class="card-myturn" :src="getImage(cardHandImage)" />
         </div>
       </div>
-      <div
-        class="othercards-container-bottom-right"
-        v-if="data.player && data.player.length === 2"
-      >
-        <div
-          :class="'my-card abs-left' + n"
-          v-for="n in data.hands[data.userId]"
-          :key="n"
-        >
+      <div class="othercards-container-bottom-right" v-if="data.player && data.player.length === 2">
+        <div :class="'my-card abs-left' + n" v-for="n in data.hands[data.userId]" :key="n">
           <img class="card-myturn" :src="getImage(cardHandImage)" />
         </div>
       </div>

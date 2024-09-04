@@ -1,8 +1,8 @@
 <!--
  * @Autor: zengjun1.fj
  * @Date: 2024-08-19 15:30:39
- * @LastEditors: zengjun1.fj
- * @LastEditTime: 2024-08-21 18:02:05
+ * @LastEditors: zhenjun
+ * @LastEditTime: 2024-09-04 14:33:19
  * @Description: 
 -->
 <template>
@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, onUnmounted } from 'vue';
+import { ref, onMounted, computed, onUnmounted, defineEmits } from 'vue';
 
 const props = defineProps({
   imageList: {
@@ -43,10 +43,20 @@ const currentImage = computed(() => props.imageList[currentIndex.value]);
 // 设置一个定时器，每隔timeout秒更新当前索引  
 let intervalId = null;
 
+const emit = defineEmits(['playCompleted']);
+
 onMounted(() => {
+
   intervalId = setInterval(() => {
     currentIndex.value = (currentIndex.value + 1) % props.imageList.length; // 循环显示图片  
-  }, props.timeout); // timeout秒  
+    // 如果需要，可以在这里添加播放完成的逻辑  
+    if (!props.isLoop && currentIndex.value === 0) { // 假设回到第一张图片时视为播放完成  
+      clearInterval(intervalId);
+      emit('playCompleted', '播放完成'); // 向父组件发送消息  
+    }
+  }, props.timeout); // timeout秒 
+
+
 });
 
 onUnmounted(() => {
