@@ -1,0 +1,34 @@
+@startuml
+start
+:获得牌局信息、牌信息、用户信息;
+if(牌局状态为未开始或结束) then (yes)
+  stop
+else(no)
+  if(状态为变色) then (yes)
+    :处理变色逻辑;
+  else(no)
+    if(手牌为0) then (yes)
+      :牌局状态改为结束;
+    else (no)
+      if(牌为+2+3和奥兹) then (yes)
+        :加攻击点数;
+      (no) elseif(牌为跳过) then (yes)
+        :出牌位次+1;
+      (no) elseif(牌为翻转) then (yes)
+        :方向求反;
+      (no) elseif(牌为胡克) then (yes)
+        :给每个用户发2个牌;
+      (no) elseif(牌为伊莉娜) then (yes)
+        :吸走所有人的绿牌;
+      (no) elseif(牌为米哈尔) then (yes)
+        :攻击点数置零;
+      else
+        :普通数字出牌;
+      endif
+      :轮次+1;
+    endif
+  endif
+endif
+
+stop
+@enduml

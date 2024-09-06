@@ -1,0 +1,67 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class BattleInfo {
+  - attackLevel: Integer
+  - deck: String
+  - playPlayer: Long
+  - direction: Integer
+  - players: String
+  - playCard: String
+  - status: String
+  - turn: Long
+  - serialVersionUID: long
+  - roomNumber: String
+  - id: Long
+}
+class BattleInfoSubOutVo {
+  - direction: Integer
+  - status: String
+  - hands: ObjectNode
+  - serialVersionUID: long
+  - id: Long
+  - turn: Long
+  - roomNumber: String
+  - playPlayer: Long
+  - attackLevel: Integer
+  - players: List<UserInfo>
+  - playCard: CardInfo
+}
+class CardInfo {
+  - id: Long
+  - available: Integer
+  - color: String
+  - description: String
+  - serialVersionUID: long
+  - image: String
+  - point: String
+  - cardType: Integer
+}
+annotation Data << annotation >>
+interface Serializable << interface >>
+annotation TableName << annotation >>
+class UserInfo {
+  - status: String
+  - serialVersionUID: long
+  - userName: String
+  - userId: String
+  - roomNumber: String
+  - id: Long
+  - hand: String
+}
+
+BattleInfo          -[#999900,dotted]-  Data               
+BattleInfo          -[#008200,dashed]-^  Serializable       
+BattleInfo          -[#999900,dotted]-  TableName          
+BattleInfoSubOutVo  -[#999900,dotted]-  Data               
+BattleInfoSubOutVo  -[#008200,dashed]-^  Serializable       
+CardInfo            -[#999900,dotted]-  Data               
+CardInfo            -[#008200,dashed]-^  Serializable       
+CardInfo            -[#999900,dotted]-  TableName          
+UserInfo            -[#999900,dotted]-  Data               
+UserInfo            -[#008200,dashed]-^  Serializable       
+UserInfo            -[#999900,dotted]-  TableName          
+@enduml
