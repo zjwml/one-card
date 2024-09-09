@@ -36,6 +36,54 @@
     top: 215px;
   }
 
+  .gatani {
+    z-index: 20;
+    position: absolute;
+
+    left: 364px;
+    top: 200px;
+  }
+
+  .magic-card {
+    z-index: 20;
+    position: absolute;
+
+    left: 300px;
+    top: 160px;
+  }
+
+  .victory {
+    z-index: 20;
+    position: absolute;
+
+    left: 100px;
+    top: 160px;
+
+    width: 491px;
+    height: 294px;
+  }
+
+  .victory {
+    z-index: 20;
+    position: absolute;
+
+    left: 100px;
+    top: 160px;
+
+    width: 491px;
+    height: 294px;
+  }
+  .magic-card {
+    z-index: 20;
+    position: absolute;
+
+    left: 100px;
+    top: 160px;
+
+    width: 491px;
+    height: 294px;
+  }
+
   .cards-deck {
     position: absolute;
 
@@ -51,6 +99,7 @@
   }
 
   .btn_start {
+    z-index: 99;
     position: absolute;
 
     left: 375px;
@@ -111,6 +160,85 @@
     .flame12 {
       left: 318px;
       top: 144px;
+    }
+  }
+
+  .choose-color {
+    position: relative;
+    left: 215px;
+    top: 170px;
+    .choose-board {
+      border: none;
+      z-index: 5;
+      border: none;
+      width: 374px;
+      height: 222px;
+      // background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.backgrnd.png');
+    }
+    .choose-red {
+      z-index: 6;
+      position: absolute;
+      left: 29px;
+      top: 56px;
+
+      width: 81px;
+      height: 109px;
+      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_red.normal.0.png');
+    }
+    .choose-red:hover {
+      cursor: pointer;
+      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_red.mouseOver.0.png');
+    }
+    .choose-yellow {
+      z-index: 6;
+      position: absolute;
+      left: 108px;
+      top: 56px;
+
+      width: 81px;
+      height: 109px;
+      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_yellow.normal.0.png');
+    }
+    .choose-yellow:hover {
+      cursor: pointer;
+      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_yellow.mouseOver.0.png');
+    }
+    .choose-blue {
+      z-index: 6;
+      position: absolute;
+      left: 187px;
+      top: 56px;
+
+      width: 81px;
+      height: 109px;
+      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_blue.normal.0.png');
+    }
+    .choose-blue:hover {
+      cursor: pointer;
+      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_blue.mouseOver.0.png');
+    }
+    .choose-green {
+      z-index: 6;
+      position: absolute;
+      left: 266px;
+      top: 56px;
+
+      width: 81px;
+      height: 109px;
+      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_green.normal.0.png');
+    }
+    .choose-green:hover {
+      cursor: pointer;
+      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_green.mouseOver.0.png');
+    }
+  }
+
+  .heroes {
+    .hero {
+      position: absolute;
+
+      left: 260px;
+      top: 215px;
     }
   }
 

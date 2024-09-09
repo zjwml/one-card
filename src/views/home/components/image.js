@@ -1,12 +1,10 @@
 /*
  * @Autor: zengjun1.fj
  * @Date: 2024-08-19 14:39:27
- * @LastEditors: zengjun1.fj
- * @LastEditTime: 2024-08-20 17:22:23
+ * @LastEditors: zhenjun
+ * @LastEditTime: 2024-09-09 16:46:14
  * @Description:
  */
-import Color from '@/components/card/color'
-import Point from '@/components/card/point'
 // 火球
 const flameNormals = []
 for (let i = 0; i < 6; i++) {
@@ -47,29 +45,70 @@ const OtherCharacterSlot = {
   backlightNext: 'mapleOneCard.OtherCharacterSlot.backlight.Next.0.png'
 }
 
-const cardDeck = []
-for (let i = 0; i < Color.length; i++) {
-  for (let j = 0; j < Point.length; j++) {
-    cardDeck.push({
-      color: Color[i],
-      point: Point[j],
-      image: 'mapleOneCard.Hand.me.' + Color[i] + '.button_' + Point[j] + '.normal.0.png'
-    })
-  }
+//米哈尔
+const mihile = []
+for (let i = 0; i < 8; i++) {
+  mihile.push('mapleOneCard.Effect.screeneff.michael.' + i + '.png')
 }
-cardDeck.push({
-  color: 'black',
-  point: 'hero',
-  image: 'mapleOneCard.Hand.me.black.button_hero.normal.0.png'
-})
+//奥兹
+const oz = []
+for (let i = 0; i < 8; i++) {
+  oz.push('mapleOneCard.Effect.screeneff.oz.' + i + '.png')
+}
+//伊莉娜
+const irina = []
+for (let i = 0; i < 8; i++) {
+  irina.push('mapleOneCard.Effect.screeneff.irina.' + i + '.png')
+}
+//伊卡尔特
+const icart = []
+for (let i = 0; i < 8; i++) {
+  icart.push('mapleOneCard.Effect.screeneff.icart.' + i + '.png')
+}
+//胡克
+const hooke = []
+for (let i = 0; i < 8; i++) {
+  hooke.push('mapleOneCard.Effect.screeneff.hawkeye.' + i + '.png')
+}
+//数字牌出牌图
+const getaniImage = []
+for (let i = 0; i < 5; i++) {
+  getaniImage.push('mapleOneCard.Hand.me.getani.' + i + '.png')
+}
+//功能牌出牌图
+const magiccardImage = []
+for (let i = 0; i < 7; i++) {
+  magiccardImage.push('mapleOneCard.Effect.magiccard.' + i + '.png')
+}
+//胜利
+const victoryImage = []
+for (let i = 0; i < 20; i++) {
+  victoryImage.push('mapleOneCard.Effect.screeneff.victory.' + i + '.png')
+}
+//最后一张牌
+const lastCardImage = []
+for (let i = 0; i < 19; i++) {
+  lastCardImage.push('mapleOneCard.Effect.screeneff.lastcard.' + i + '.png')
+}
+
+const chooseColorBoardImage = 'mapleOneCard.OneCardPopup.ChangeColor.backgrnd.png'
 
 export {
   flameNormals,
-  cardDeck,
   MyCharacterSlot,
   OtherCharacterSlot,
   clickNormals,
   myturns,
   nexts,
-  waitingImage
+  waitingImage,
+  mihile,
+  oz,
+  irina,
+  icart,
+  hooke,
+  chooseColorBoardImage,
+  getaniImage,
+  magiccardImage,
+  victoryImage,
+  lastCardImage
 }

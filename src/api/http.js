@@ -43,8 +43,10 @@ instance.interceptors.response.use(
     //根据后端约定状态判断执行 结束
   },
   (error) => {
-    console.log(error)
-    return Promise.reject(error)
+    return Promise.reject({
+      code: 400,
+      msg: error.massage
+    })
   }
 )
 

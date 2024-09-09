@@ -2,11 +2,11 @@
  * @Autor: zengjun1.fj
  * @Date: 2024-08-15 16:43:21
  * @LastEditors: zhenjun
- * @LastEditTime: 2024-09-06 17:52:11
+ * @LastEditTime: 2024-09-09 17:47:51
  * @Description: 
 -->
 <script setup>
-import { reactive, ref, onMounted, onUnmounted } from "vue";
+import { reactive, ref, onMounted, onUnmounted, computed } from "vue";
 import { MessagePlugin } from "tdesign-vue-next";
 import mapleAxios from "@/api/http";
 
@@ -20,6 +20,16 @@ import {
   myturns,
   nexts,
   waitingImage,
+  mihile,
+  oz,
+  irina,
+  icart,
+  hooke,
+  chooseColorBoardImage,
+  getaniImage,
+  magiccardImage,
+  lastCardImage,
+  victoryImage
 } from "./components/image";
 import TheGif from "@/components/TheGif.vue";
 
@@ -50,6 +60,13 @@ let data = reactive({
   logined: false,
   ppp: "",
   showStart: false,
+  showHero: false,
+  showMagic: false,
+  showGatani: false,
+  showLastCard: false,
+  showVictory: false,
+  showLost: false,
+  showChangeColorBoard: false,
   userName: "",
   roomNumber: "",
   userId: "",
@@ -61,10 +78,8 @@ let data = reactive({
   playCard: {
     id: "53",
     color: "other",
-    point: "",
+    point: "other",
   },
-  hands: {},
-  isAllDisabled: false,
   status: "00",
 
   turn2: 1,
@@ -121,32 +136,150 @@ const isDisabledCard = (card) => {
     return true;
   }
   if ("attack2" == data.playCard.point) {
-    if ("attack3" == card.point) {
-      return false;
-    }
-    if ("hero" == card.point && "red" == card.color) {
-      return false;
+    if (0 != data.attackLevel) {
+      if ("attack2" == card.point) {
+        return false;
+      } else if ("attack3" == card.point) {
+        return false;
+      } else if ("hero" == card.point && "red" == card.color) {
+        return false;
+      } else {
+        return 48 != card.id & 49 != card.id;
+      }
     }
   }
   if ("attack3" == data.playCard.point) {
-    if ("hero" == card.point && "red" == card.color) {
-      return false;
+    if (0 != data.attackLevel) {
+      if ("attack3" == card.point) {
+        return false;
+      } else if ("hero" == card.point && "red" == card.color) {
+        return false;
+      } else {
+        return 48 != card.id & 49 != card.id;
+      }
     }
+  }
+  //奥兹只能出伊卡尔特和米哈尔
+  if (36 == data.playCard.id) {
+    if (0 != data.attackLevel) {
+      return 48 != card.id & 49 != card.id;
+    }
+
   }
 
   if (data.playCard.color != card.color && data.playCard.point != card.point) {
     return true;
   }
-
-  data.isAllDisabled = false;
   return false;
 };
+
+// 一个计算属性 ref
+const heroName = computed(() => {
+  if (12 == data.playCard.id) {
+    return hooke;
+  }
+  if (24 == data.playCard.id) {
+    return irina;
+  }
+  if (36 == data.playCard.id) {
+    return oz;
+  }
+  if (48 == data.playCard.id) {
+    return mihile;
+  }
+  if (49 == data.playCard.id) {
+    return icart;
+  }
+  return [];
+})
+
+const isAllDisabled = computed(() => {
+  if (data.myturn) {
+    if (data.players[data.myturn]) {
+      if (data.players[data.myturn].hand) {
+        for (let item in data.players[data.myturn].hand) {
+          if (!isDisabledCard(item)) {
+            return false;
+          }
+        }
+        return true;
+      }
+    }
+  }
+  return false;
+})
+/**
+ * 选择颜色的操作
+ * @param {string} color 颜色
+ */
+const chooseColor = (color) => {
+  data.showChangeColorBoard = false;
+  let obj = {
+    userName: data.userName,
+    roomNumber: data.roomNumber,
+  }
+  if ('hero' == data.playCard.point) {
+    if ('red' === color) {
+      obj.cardId = 51;
+    } else if ('yellow' === color) {
+      obj.cardId = 52;
+    } else if ('blue' === color) {
+      obj.cardId = 50;
+    }
+  } else {
+    if ('red' === color) {
+      obj.cardId = 33;
+    } else if ('yellow' === color) {
+      obj.cardId = 45;
+    } else if ('blue' === color) {
+      obj.cardId = 9;
+    } else if ('green' === color) {
+      obj.cardId = 21;
+    }
+  }
+
+  data.playCard.id = obj.cardId;
+  mapleAxios
+    .post("/battle/play", obj)
+    .then((response) => {
+      console.log("response:", response);
+      if ("000" !== response.code) {
+        MessagePlugin.error(response.msg);
+        return;
+      }
+      updateData(response);
+    });
+}
 /**
  * 出牌
  * @param {object} item 牌
  */
 const playOneCard = (item) => {
   console.log("出牌：", item);
+  if (/^\d+$/.test(item.point)) {
+    data.showGatani = true;
+  } else {
+    data.showMagic = true;
+  }
+
+  if ('hero' == item.point) {
+    data.showHero = true;
+  } else {
+    data.showHero = false;
+  }
+
+  if (data.players[data.myturn].hand.length == 2) {
+    data.showLastCard = true;
+  }
+
+  if (data.players[data.myturn].hand.length == 1) {
+    data.showVictory = true;
+  }
+
+  //选择变色和伊莉娜的时候要换色
+  if ("change" == item.point || 24 == item.id) {
+    data.showChangeColorBoard = true;
+  }
   mapleAxios
     .post("/battle/play", {
       userName: data.userName,
@@ -263,16 +396,16 @@ const updateData = (response) => {
   // console.log("测试", data.players[data.myturn])
 }
 
-/**
- * 获得手牌
- * @param {string} army 对家
- */
-// const getHand = (army) => {
-//   if (!data.hands) {
-//     return 0;
-//   }
+const onConfirmAnother = () => {
+  mapleAxios
+    .post("/user/logout", {
+      userName: data.userName,
+      roomNumber: data.roomNumber,
+    })
+    .then(() => {
 
-// }
+    });
+}
 
 // 设置一个定时器，每隔timeout秒请求查询
 let intervalId = null;
@@ -286,6 +419,8 @@ onMounted(() => {
     .catch((error) => {
       console.error("Error reading JSON file:", error);
     });
+
+  window.addEventListener('beforeunload', onConfirmAnother);
 
   intervalId = setInterval(() => {
     loading.value = false;
@@ -309,6 +444,8 @@ onMounted(() => {
 onUnmounted(() => {
   // 组件卸载时清除定时器
   clearInterval(intervalId);
+
+  window.removeEventListener('beforeunload', onConfirmAnother);
 });
 </script>
 
@@ -339,9 +476,17 @@ onUnmounted(() => {
     </div>
 
     <div class="game-table" v-if="data.logined">
+      <TheGif class="gatani" :imageList="getaniImage" v-if="data.showGatani" :isLoop="false"
+        @playCompleted="() => { data.showGatani = false }" :timeout="100" />
+      <TheGif class="magic-card" :imageList="magiccardImage" v-if="data.showMagic" :isLoop="false"
+        @playCompleted="() => { data.showMagic = false }" :timeout="100" />
+      <TheGif class="victory" :imageList="victoryImage" v-if="data.showVictory" :isLoop="false"
+        @playCompleted="() => { data.showVictory = false }" :timeout="100" />
+      <TheGif class="last-card" :imageList="lastCardImage" v-if="data.showLastCard" :isLoop="false"
+        @playCompleted="() => { data.showLastCard = false }" :timeout="100" />
       <img class="card-previous" :src="getCardImage(data.playCard)" />
       <img class="cards-deck" :src="getImage(cardDeckImage)" @click="drawCard" />
-      <TheGif class="clickNormals" :imageList="clickNormals" v-show="isMyturn(data.myturn) && data.isAllDisabled" />
+      <TheGif class="clickNormals" :imageList="clickNormals" v-show="isMyturn(data.myturn) && isAllDisabled" />
 
       <div class="flames" v-if="data.attackLevel >= 1">
         <TheGif :class="'flame flame' + n" v-for="n in data.attackLevel" :key="n" :imageList="flameNormals" />
@@ -349,6 +494,19 @@ onUnmounted(() => {
 
       <div class="btn_start" v-if="data.showStart">
         <t-button @Click="onStartGame">开始</t-button>
+      </div>
+
+      <div class="heroes">
+        <TheGif class="hero" :imageList="heroName" v-if="data.showHero" :isLoop="false"
+          @playCompleted="() => { data.showHero = false }" :timeout="100" />
+      </div>
+
+      <div class="choose-color" v-if="data.showChangeColorBoard">
+        <img class="choose-board" :src="getImage(chooseColorBoardImage)" />
+        <div class="choose-red" @click="chooseColor('red')"> </div>
+        <div class="choose-yellow" @click="chooseColor('yellow')"></div>
+        <div class="choose-blue" @click="chooseColor('blue')"></div>
+        <div class="choose-green" v-if="24 !== data.playCard.id" @click="chooseColor('green')"></div>
       </div>
 
       <div class="boards">
@@ -376,7 +534,7 @@ onUnmounted(() => {
             v-show="isWaiting(data.turn4)" />
           <div class="othername" v-if="data.players && data.players.length === 4">
             {{
-      data.players[(data.myturn + data.players.length + 3) % data.players.length]
+      data.players[(data.myturn + data.players.length + 3) % data.players.length].userName
     }}
           </div>
         </div>
@@ -395,7 +553,7 @@ onUnmounted(() => {
             v-show="isWaiting(data.turn3)" />
           <div class="othername" v-if="data.players && data.players.length === 3">
             {{
-      data.players[(data.myturn + data.players.length + 2) % data.players.length]
+      data.players[(data.myturn + data.players.length + 2) % data.players.length].userName
     }}
           </div>
         </div>
@@ -416,7 +574,7 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <div class="mycards-container" v-if="data.hands">
+      <div class="mycards-container">
         <div :class="'my-card abs-left' + index"
           v-for="(item, index) in sortByColorThenPoint(data.players[data.myturn].hand)" :key="index">
           <img class="cardDisabledImage" :src="getImage(cardDisabledImage)" v-show="isDisabledCard(item)" />

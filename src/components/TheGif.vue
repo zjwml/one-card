@@ -52,7 +52,7 @@ onMounted(() => {
     // 如果需要，可以在这里添加播放完成的逻辑  
     if (!props.isLoop && currentIndex.value === 0) { // 假设回到第一张图片时视为播放完成  
       clearInterval(intervalId);
-      emit('playCompleted', '播放完成'); // 向父组件发送消息  
+      emit('playCompleted'); // 向父组件发送消息  
     }
   }, props.timeout); // timeout秒 
 
