@@ -13,7 +13,6 @@
 }
 
 .game-container {
-  color: yellow;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +22,7 @@
   .game-table {
     width: 800px;
     height: 537px;
-    background-image: url('@/assets/img/mapleOneCard.Board.backgrnd.png');
+    background-image: url('/img/mapleOneCard.Board.backgrnd.png');
   }
 
   .card-previous {
@@ -173,7 +172,7 @@
       border: none;
       width: 374px;
       height: 222px;
-      // background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.backgrnd.png');
+      // background-image: url('/img/mapleOneCard.OneCardPopup.ChangeColor.backgrnd.png');
     }
     .choose-red {
       z-index: 6;
@@ -183,11 +182,11 @@
 
       width: 81px;
       height: 109px;
-      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_red.normal.0.png');
+      background-image: url('/img/mapleOneCard.OneCardPopup.ChangeColor.button_red.normal.0.png');
     }
     .choose-red:hover {
       cursor: pointer;
-      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_red.mouseOver.0.png');
+      background-image: url('/img/mapleOneCard.OneCardPopup.ChangeColor.button_red.mouseOver.0.png');
     }
     .choose-yellow {
       z-index: 6;
@@ -197,11 +196,11 @@
 
       width: 81px;
       height: 109px;
-      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_yellow.normal.0.png');
+      background-image: url('/img/mapleOneCard.OneCardPopup.ChangeColor.button_yellow.normal.0.png');
     }
     .choose-yellow:hover {
       cursor: pointer;
-      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_yellow.mouseOver.0.png');
+      background-image: url('/img/mapleOneCard.OneCardPopup.ChangeColor.button_yellow.mouseOver.0.png');
     }
     .choose-blue {
       z-index: 6;
@@ -211,11 +210,11 @@
 
       width: 81px;
       height: 109px;
-      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_blue.normal.0.png');
+      background-image: url('/img/mapleOneCard.OneCardPopup.ChangeColor.button_blue.normal.0.png');
     }
     .choose-blue:hover {
       cursor: pointer;
-      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_blue.mouseOver.0.png');
+      background-image: url('/img/mapleOneCard.OneCardPopup.ChangeColor.button_blue.mouseOver.0.png');
     }
     .choose-green {
       z-index: 6;
@@ -225,11 +224,11 @@
 
       width: 81px;
       height: 109px;
-      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_green.normal.0.png');
+      background-image: url('/img/mapleOneCard.OneCardPopup.ChangeColor.button_green.normal.0.png');
     }
     .choose-green:hover {
       cursor: pointer;
-      background-image: url('@/assets/img/mapleOneCard.OneCardPopup.ChangeColor.button_green.mouseOver.0.png');
+      background-image: url('/img/mapleOneCard.OneCardPopup.ChangeColor.button_green.mouseOver.0.png');
     }
   }
 
@@ -243,6 +242,7 @@
   }
 
   .boards {
+    color: yellow;
     .MyCharacterSlot {
       width: 165px;
       height: 100px;
@@ -408,5 +408,10 @@
         height: 92px;
       }
     }
+  }
+
+  .btn-game-tip {
+    width: 200px;
+    margin-top: 20px;
   }
 }

@@ -1,22 +1,24 @@
 /*
  * @Autor: zengjun1.fj
  * @Date: 2024-08-15 16:43:21
- * @LastEditors: zengjun1.fj
- * @LastEditTime: 2024-08-19 10:12:37
- * @Description: 
+ * @LastEditors: zhenjun
+ * @LastEditTime: 2024-09-10 11:01:43
+ * @Description:
  */
 /*
  * @Autor: zengjun1.fj
  * @Date: 2024-08-15 16:43:21
  * @LastEditors: zengjun1.fj
  * @LastEditTime: 2024-08-19 10:12:34
- * @Description: 
+ * @Description:
  */
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter } from 'vue-router'
 import HomeView from '../views/home/HomeView.vue'
+// import { createWebHashHistory } from 'vue-router'
+import { createMemoryHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createMemoryHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',

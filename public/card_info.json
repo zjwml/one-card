@@ -1,7 +1,7 @@
 {
   "card_info": [
     {
-      "id": "1",
+      "id": 1,
       "color": "blue",
       "point": "1",
       "description": "蓝1",
@@ -10,7 +10,7 @@
       "card_type": 0
     },
     {
-      "id": "2",
+      "id": 2,
       "color": "blue",
       "point": "2",
       "description": "蓝2",
@@ -19,7 +19,7 @@
       "card_type": 0
     },
     {
-      "id": "3",
+      "id": 3,
       "color": "blue",
       "point": "3",
       "description": "蓝3",
@@ -28,7 +28,7 @@
       "card_type": 0
     },
     {
-      "id": "4",
+      "id": 4,
       "color": "blue",
       "point": "4",
       "description": "蓝4",
@@ -37,7 +37,7 @@
       "card_type": 0
     },
     {
-      "id": "5",
+      "id": 5,
       "color": "blue",
       "point": "5",
       "description": "蓝5",
@@ -46,7 +46,7 @@
       "card_type": 0
     },
     {
-      "id": "6",
+      "id": 6,
       "color": "blue",
       "point": "6",
       "description": "蓝6",
@@ -55,7 +55,7 @@
       "card_type": 0
     },
     {
-      "id": "7",
+      "id": 7,
       "color": "blue",
       "point": "goback",
       "description": "蓝翻转",
@@ -64,7 +64,7 @@
       "card_type": 1
     },
     {
-      "id": "8",
+      "id": 8,
       "color": "blue",
       "point": "jump",
       "description": "蓝跳过",
@@ -73,7 +73,7 @@
       "card_type": 1
     },
     {
-      "id": "9",
+      "id": 9,
       "color": "blue",
       "point": "change",
       "description": "蓝变色",
@@ -82,7 +82,7 @@
       "card_type": 1
     },
     {
-      "id": "10",
+      "id": 10,
       "color": "blue",
       "point": "attack2",
       "description": "蓝攻2",
@@ -91,7 +91,7 @@
       "card_type": 1
     },
     {
-      "id": "11",
+      "id": 11,
       "color": "blue",
       "point": "attack3",
       "description": "蓝攻3",
@@ -100,7 +100,7 @@
       "card_type": 1
     },
     {
-      "id": "12",
+      "id": 12,
       "color": "blue",
       "point": "hero",
       "description": "胡克",
@@ -109,7 +109,7 @@
       "card_type": 1
     },
     {
-      "id": "13",
+      "id": 13,
       "color": "green",
       "point": "1",
       "description": "绿1",
@@ -118,7 +118,7 @@
       "card_type": 0
     },
     {
-      "id": "14",
+      "id": 14,
       "color": "green",
       "point": "2",
       "description": "绿2",
@@ -127,7 +127,7 @@
       "card_type": 0
     },
     {
-      "id": "15",
+      "id": 15,
       "color": "green",
       "point": "3",
       "description": "绿3",
@@ -136,7 +136,7 @@
       "card_type": 0
     },
     {
-      "id": "16",
+      "id": 16,
       "color": "green",
       "point": "4",
       "description": "绿4",
@@ -145,7 +145,7 @@
       "card_type": 0
     },
     {
-      "id": "17",
+      "id": 17,
       "color": "green",
       "point": "5",
       "description": "绿5",
@@ -154,7 +154,7 @@
       "card_type": 0
     },
     {
-      "id": "18",
+      "id": 18,
       "color": "green",
       "point": "6",
       "description": "绿6",
@@ -163,7 +163,7 @@
       "card_type": 0
     },
     {
-      "id": "19",
+      "id": 19,
       "color": "green",
       "point": "goback",
       "description": "绿翻转",
@@ -172,7 +172,7 @@
       "card_type": 1
     },
     {
-      "id": "20",
+      "id": 20,
       "color": "green",
       "point": "jump",
       "description": "绿跳过",
@@ -181,7 +181,7 @@
       "card_type": 1
     },
     {
-      "id": "21",
+      "id": 21,
       "color": "green",
       "point": "change",
       "description": "绿变色",
@@ -190,7 +190,7 @@
       "card_type": 1
     },
     {
-      "id": "22",
+      "id": 22,
       "color": "green",
       "point": "attack2",
       "description": "绿攻2",
@@ -199,7 +199,7 @@
       "card_type": 1
     },
     {
-      "id": "23",
+      "id": 23,
       "color": "green",
       "point": "attack3",
       "description": "绿攻3",
@@ -208,7 +208,7 @@
       "card_type": 1
     },
     {
-      "id": "24",
+      "id": 24,
       "color": "green",
       "point": "hero",
       "description": "伊莉娜",
@@ -217,7 +217,7 @@
       "card_type": 1
     },
     {
-      "id": "25",
+      "id": 25,
       "color": "red",
       "point": "1",
       "description": "红1",
@@ -226,7 +226,7 @@
       "card_type": 0
     },
     {
-      "id": "26",
+      "id": 26,
       "color": "red",
       "point": "2",
       "description": "红2",
@@ -235,7 +235,7 @@
       "card_type": 0
     },
     {
-      "id": "27",
+      "id": 27,
       "color": "red",
       "point": "3",
       "description": "红3",
@@ -244,7 +244,7 @@
       "card_type": 0
     },
     {
-      "id": "28",
+      "id": 28,
       "color": "red",
       "point": "4",
       "description": "红4",
@@ -253,7 +253,7 @@
       "card_type": 0
     },
     {
-      "id": "29",
+      "id": 29,
       "color": "red",
       "point": "5",
       "description": "红5",
@@ -262,7 +262,7 @@
       "card_type": 0
     },
     {
-      "id": "30",
+      "id": 30,
       "color": "red",
       "point": "6",
       "description": "红6",
@@ -271,7 +271,7 @@
       "card_type": 0
     },
     {
-      "id": "31",
+      "id": 31,
       "color": "red",
       "point": "goback",
       "description": "红翻转",
@@ -280,7 +280,7 @@
       "card_type": 1
     },
     {
-      "id": "32",
+      "id": 32,
       "color": "red",
       "point": "jump",
       "description": "红跳过",
@@ -289,7 +289,7 @@
       "card_type": 1
     },
     {
-      "id": "33",
+      "id": 33,
       "color": "red",
       "point": "change",
       "description": "红变色",
@@ -298,7 +298,7 @@
       "card_type": 1
     },
     {
-      "id": "34",
+      "id": 34,
       "color": "red",
       "point": "attack2",
       "description": "红攻2",
@@ -307,7 +307,7 @@
       "card_type": 1
     },
     {
-      "id": "35",
+      "id": 35,
       "color": "red",
       "point": "attack3",
       "description": "红攻3",
@@ -316,7 +316,7 @@
       "card_type": 1
     },
     {
-      "id": "36",
+      "id": 36,
       "color": "red",
       "point": "hero",
       "description": "奥兹",
@@ -325,7 +325,7 @@
       "card_type": 1
     },
     {
-      "id": "37",
+      "id": 37,
       "color": "yellow",
       "point": "1",
       "description": "黄1",
@@ -334,7 +334,7 @@
       "card_type": 0
     },
     {
-      "id": "38",
+      "id": 38,
       "color": "yellow",
       "point": "2",
       "description": "黄2",
@@ -343,7 +343,7 @@
       "card_type": 0
     },
     {
-      "id": "39",
+      "id": 39,
       "color": "yellow",
       "point": "3",
       "description": "黄3",
@@ -352,7 +352,7 @@
       "card_type": 0
     },
     {
-      "id": "40",
+      "id": 40,
       "color": "yellow",
       "point": "4",
       "description": "黄4",
@@ -361,7 +361,7 @@
       "card_type": 0
     },
     {
-      "id": "41",
+      "id": 41,
       "color": "yellow",
       "point": "5",
       "description": "黄5",
@@ -370,7 +370,7 @@
       "card_type": 0
     },
     {
-      "id": "42",
+      "id": 42,
       "color": "yellow",
       "point": "6",
       "description": "黄6",
@@ -379,7 +379,7 @@
       "card_type": 0
     },
     {
-      "id": "43",
+      "id": 43,
       "color": "yellow",
       "point": "goback",
       "description": "黄翻转",
@@ -388,7 +388,7 @@
       "card_type": 1
     },
     {
-      "id": "44",
+      "id": 44,
       "color": "yellow",
       "point": "jump",
       "description": "黄跳过",
@@ -397,7 +397,7 @@
       "card_type": 1
     },
     {
-      "id": "45",
+      "id": 45,
       "color": "yellow",
       "point": "change",
       "description": "黄变色",
@@ -406,7 +406,7 @@
       "card_type": 1
     },
     {
-      "id": "46",
+      "id": 46,
       "color": "yellow",
       "point": "attack2",
       "description": "黄攻2",
@@ -415,7 +415,7 @@
       "card_type": 1
     },
     {
-      "id": "47",
+      "id": 47,
       "color": "yellow",
       "point": "attack3",
       "description": "黄攻3",
@@ -424,7 +424,7 @@
       "card_type": 1
     },
     {
-      "id": "48",
+      "id": 48,
       "color": "yellow",
       "point": "hero",
       "description": "米哈尔",
@@ -433,7 +433,7 @@
       "card_type": 1
     },
     {
-      "id": "49",
+      "id": 49,
       "color": "black",
       "point": "hero",
       "description": "伊卡尔特",
@@ -442,7 +442,7 @@
       "card_type": 1
     },
     {
-      "id": "50",
+      "id": 50,
       "color": "blue",
       "point": "hero",
       "description": "伊莉娜",
@@ -451,7 +451,7 @@
       "card_type": 2
     },
     {
-      "id": "51",
+      "id": 51,
       "color": "red",
       "point": "hero",
       "description": "伊莉娜",
@@ -460,7 +460,7 @@
       "card_type": 2
     },
     {
-      "id": "52",
+      "id": 52,
       "color": "yellow",
       "point": "hero",
       "description": "伊莉娜",
@@ -469,13 +469,49 @@
       "card_type": 2
     },
     {
-      "id": "53",
+      "id": 53,
       "color": "other",
-      "point": "",
+      "point": "other",
       "description": "卡背",
       "image": "mapleOneCard.Hand.other.default.png",
       "available": 0,
       "card_type": 3
+    },
+    {
+      "id": 54,
+      "color": "yellow",
+      "point": "onemore",
+      "description": "再出一张",
+      "image": "mapleOneCard.Hand.me.yellow.button_onemore.normal.0.png",
+      "available": 1,
+      "card_type": 1
+    },
+    {
+      "id": 55,
+      "color": "blue",
+      "point": "onemore",
+      "description": "再出一张",
+      "image": "mapleOneCard.Hand.me.blue.button_onemore.normal.0.png",
+      "available": 1,
+      "card_type": 1
+    },
+    {
+      "id": 56,
+      "color": "red",
+      "point": "onemore",
+      "description": "再出一张",
+      "image": "mapleOneCard.Hand.me.red.button_onemore.normal.0.png",
+      "available": 1,
+      "card_type": 1
+    },
+    {
+      "id": 57,
+      "color": "green",
+      "point": "onemore",
+      "description": "再出一张",
+      "image": "mapleOneCard.Hand.me.green.button_onemore.normal.0.png",
+      "available": 1,
+      "card_type": 1
     }
   ]
 }

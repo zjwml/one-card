@@ -1,3 +1,10 @@
+/*
+ * @Autor: zhenjun
+ * @Date: 2024-08-15 16:43:21
+ * @LastEditors: zhenjun
+ * @LastEditTime: 2024-09-10 14:08:47
+ * @Description:
+ */
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -11,6 +18,11 @@ import { TDesignResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
+  build: {
+    outDir: 'maple'
+  },
+  // publicDir: '/public',
   server: {
     proxy: {
       '/mapleApi': {

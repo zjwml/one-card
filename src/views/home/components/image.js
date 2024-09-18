@@ -36,13 +36,13 @@ const waitingImage = 'mapleOneCard.Effect.status.waiting.loop.0.png'
 const MyCharacterSlot = {
   board: 'mapleOneCard.MyCharacterSlot.board.0.png',
   backlightMyturn: 'mapleOneCard.MyCharacterSlot.backlight.myturn.0.png',
-  backlightNext: 'mapleOneCard.MyCharacterSlot.backlight.Next.0.png'
+  backlightNext: 'mapleOneCard.MyCharacterSlot.backlight.next.0.png'
 }
 
 const OtherCharacterSlot = {
   board: 'mapleOneCard.OtherCharacterSlot.board.0.png',
   backlightMyturn: 'mapleOneCard.OtherCharacterSlot.backlight.myturn.0.png',
-  backlightNext: 'mapleOneCard.OtherCharacterSlot.backlight.Next.0.png'
+  backlightNext: 'mapleOneCard.OtherCharacterSlot.backlight.next.0.png'
 }
 
 //米哈尔

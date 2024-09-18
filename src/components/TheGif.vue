@@ -2,7 +2,7 @@
  * @Autor: zengjun1.fj
  * @Date: 2024-08-19 15:30:39
  * @LastEditors: zhenjun
- * @LastEditTime: 2024-09-04 14:33:19
+ * @LastEditTime: 2024-09-10 11:28:29
  * @Description: 
 -->
 <template>
@@ -13,6 +13,7 @@
 
 <script setup>
 import { ref, onMounted, computed, onUnmounted, defineEmits } from 'vue';
+import { getImage } from '@/utils/imageUtils';
 
 const props = defineProps({
   imageList: {
@@ -30,11 +31,6 @@ const props = defineProps({
     default: true
   }
 })
-
-const pathParent = "../assets/img/";
-let getImage = name => {
-  return new URL(pathParent + name, import.meta.url).href;
-}
 
 // 当前显示的图片索引  
 const currentIndex = ref(0);
